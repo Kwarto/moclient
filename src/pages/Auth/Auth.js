@@ -28,7 +28,6 @@ const Auth = () => {
   const handleChange = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
-  console.log(user)
   useEffect(() => {
     const uploadFile = () => {
       const storageRef = ref(storage, file.name);
@@ -74,6 +73,7 @@ const Auth = () => {
           email,
           password
         );
+        console.log(user);
       } else {
         return toast.error('All fields are required!');
       }
