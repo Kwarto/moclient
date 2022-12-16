@@ -80,7 +80,7 @@ const Header = () => {
             </SearchWrapper>
             <OtherWrapper>
               <FaUserCircle className='f-user'/>
-              <h2>{ currentUser.displayName}</h2>
+              <h2>{ currentUser?.displayName}</h2>
             </OtherWrapper>
           </BTWrapper>
           <BBWrapper>
