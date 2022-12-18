@@ -34,11 +34,13 @@ const Detail = () => {
           </div>
           <div className="sec-con">
             <h3>$ {product?.price}.00</h3>
+            <span>
+              <h5>Bulk Purchase</h5>
+              <p>20 PCS</p>
+            </span>
           </div>
           <div className="abt">
             <p>{product?.description}</p>
-            <br />
-            <p>{product?.description.substring(0, 200)}</p>
           </div>
           <div className="add-btn">
             <Link to='/checkout'>
@@ -96,10 +98,21 @@ const SingleProductDetail = styled.div`
 
     .sec-con {
       margin-top: 30px;
-
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       h3 {
         font-size: 33px;
         color: var(--btn-bg);
+      }
+
+      h5{
+        font-size: 16px;
+        padding-bottom: 2px;
+      }
+
+      p{
+        font-size: 12px;
       }
     }
 

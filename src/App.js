@@ -12,6 +12,7 @@ import { useContext } from 'react';
 import { AuthContext } from './context/AuthContext';
 import Search from './pages/Search/Search';
 import Checkout from './pages/Checkout/Checkout';
+import Complete from './pages/Checkout/Complete';
 
 const App = () => {
   const { currentUser } = useContext(AuthContext);
@@ -56,6 +57,7 @@ const App = () => {
           }
         />
         <Route path='/checkout' index element={<Checkout />} />
+        <Route path='/complete' index element={<Complete />} />
         <Route path="*" exact element={<ErrorPage />} />
       </Routes>
     </>
