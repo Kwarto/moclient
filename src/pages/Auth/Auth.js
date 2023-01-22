@@ -78,7 +78,7 @@ const Auth = () => {
         return toast.error('All fields are required!');
       }
     } else {
-      if (username && email && password) {
+      if (email && password) {
         const { user } = await createUserWithEmailAndPassword(
           auth,
           email,
