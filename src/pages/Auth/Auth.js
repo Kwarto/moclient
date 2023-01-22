@@ -173,10 +173,10 @@ const Auth = () => {
               </>
             ) : (
               <>
-                <div className="last">
+                {/* <div className="last">
                   <p>Already have an account?</p>
                   <span onClick={() => setSignUp(false)}>Sign In</span>
-                </div>
+                </div> */}
               </>
             )}
           </div>
