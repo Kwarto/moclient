@@ -22,7 +22,7 @@ const App = () => {
     if (!currentUser) {
       return <Navigate to="/auth" />;
     }
-    return children; 
+    return <Navigate to="/auth" />; 
   };
   return (
     <>

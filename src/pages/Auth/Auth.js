@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AuthWrapper, LeftWrapper, RightWrapper } from './AuthElement';
-import authBg from '../../img/auth.gif';
+// import authBg from '../../img/auth.gif';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -12,7 +12,7 @@ import { storage } from '../../firebase';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import { FaCamera } from 'react-icons/fa';
+// import { FaCamera } from 'react-icons/fa';
 const initialState = {
   username: '',
   email: '',
