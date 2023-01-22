@@ -8,6 +8,7 @@
   list-style: none;
   font-family: 'Roboto Condensed', sans-serif;
   outline: none;
+  overflow-y: hidden;
 }
 
 html{

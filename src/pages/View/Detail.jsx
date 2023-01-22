@@ -34,13 +34,13 @@ const Detail = () => {
           </div>
           <div className="sec-con">
             <h3>$ {product?.price}.00</h3>
-            <span>
+            {product?.price === 55 && (<span>
               <h5>Bulk Purchase</h5>
               <p>20 PCS</p>
-            </span>
+            </span>)}
           </div>
           <div className="abt">
-            <p>{product?.description}</p>
+            <p>{product?.description.substring(0, 700)}...</p>
           </div>
           <div className="add-btn">
             <Link to='/checkout'>
@@ -64,7 +64,7 @@ const SingleProductDetail = styled.div`
   gap: 3%;
 
   .pro-img-wrap {
-    background: rgba(55, 0, 255, 0.048);
+    /* background: rgba(55, 0, 255, 0.048); */
     border-radius: 5px;
     padding: 10px;
     div {
@@ -72,7 +72,7 @@ const SingleProductDetail = styled.div`
       img {
         width: 80%;
         height: 520px;
-        margin: 0 auto;
+        margin: 20px auto;
       }
     }
   }

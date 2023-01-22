@@ -6,7 +6,7 @@ export const AuthWrapper = styled.section`
   grid-template-columns: 58% 40%;
   gap: 2%;
   width: 90%;
-  margin: 0 auto;
+  margin: 10% auto;
 
   @media screen and (max-width: 768px) {
     grid-template-columns: 100%;
@@ -21,14 +21,14 @@ export const LeftWrapper = styled.div`
   }
 
   @media screen and (max-width: 768px) {
-    display: none;
+    display: block;
   }
 `;
 export const RightWrapper = styled.div`
   padding: 30px 0;
 
   .title {
-    font-size: 36px;
+    font-size: 20px;
     font-weight: 600;
     padding-bottom: 10px;
     padding-left: 10px;
@@ -75,7 +75,7 @@ export const RightWrapper = styled.div`
       }
 
       button {
-        background: var(--main-bg);
+        background: blue;
         color: var(--text-color);
         font-size: 20px;
         font-weight: 600;

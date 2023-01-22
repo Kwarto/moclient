@@ -13,6 +13,7 @@ import { AuthContext } from './context/AuthContext';
 import Search from './pages/Search/Search';
 import Checkout from './pages/Checkout/Checkout';
 import Complete from './pages/Checkout/Complete';
+import Footer from './components/Footer/Footer'
 
 const App = () => {
   const { currentUser } = useContext(AuthContext);
@@ -26,7 +27,7 @@ const App = () => {
   return (
     <>
       <ToastContainer position="top-right" />
-      <Header />
+      {/* <Header /> */}
       <Routes>
         <Route path='/search' index element={<Search />} />
         <Route
@@ -60,6 +61,7 @@ const App = () => {
         <Route path='/complete' index element={<Complete />} />
         <Route path="*" exact element={<ErrorPage />} />
       </Routes>
+      {/* <Footer /> */}
     </>
   );
 };

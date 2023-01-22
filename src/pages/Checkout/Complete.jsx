@@ -51,6 +51,13 @@ const CompleteWrapper = styled.div`
         font-weight: 600;
       }
     }
+
+    @media screen and (max-width: 430px){
+      min-height: 20vh;
+      h2{
+        font-size: 25px;
+      }
+    }
  }
 `
 export default Complete

