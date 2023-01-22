@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import { AuthWrapper, LeftWrapper, RightWrapper } from './AuthElement';
 // import authBg from '../../img/auth.gif';
 import {
@@ -6,9 +6,9 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from 'firebase/auth';
-import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+// import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { auth, db } from '../../firebase';
-import { storage } from '../../firebase';
+// import { storage } from '../../firebase';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
@@ -21,48 +21,48 @@ const initialState = {
 const Auth = () => {
   const [state, setState] = useState(initialState);
   const [signUp, setSignUp] = useState(true);
-  const [file, setFile] = useState(null);
-  const [progress, setProgress] = useState(false);
+  // const [file, setFile] = useState(null);
+  // const [progress, setProgress] = useState(false);
   const navigate = useNavigate();
   const { email, password, username } = state;
   const handleChange = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
-  useEffect(() => {
-    const uploadFile = () => {
-      const storageRef = ref(storage, file.name);
-      const uploadTask = uploadBytesResumable(storageRef, file);
-      uploadTask.on(
-        'state_changed',
-        (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          setProgress(progress);
-          switch (snapshot.state) {
-            case 'paused':
-              console.log('Upload paused');
-              break;
-            case 'running':
-              console.log('Upload is running');
-              break;
-            default:
-              break;
-          }
-        },
-        (error) => {
-          console.log(error);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
-            toast.info('Upload completed');
-            setState((prev) => ({ ...prev, imgUrl: downloadUrl }));
-          });
-        }
-      );
-    };
+  // useEffect(() => {
+  //   const uploadFile = () => {
+  //     const storageRef = ref(storage, file.name);
+  //     const uploadTask = uploadBytesResumable(storageRef, file);
+  //     uploadTask.on(
+  //       'state_changed',
+  //       (snapshot) => {
+  //         const progress =
+  //           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+  //         setProgress(progress);
+  //         switch (snapshot.state) {
+  //           case 'paused':
+  //             console.log('Upload paused');
+  //             break;
+  //           case 'running':
+  //             console.log('Upload is running');
+  //             break;
+  //           default:
+  //             break;
+  //         }
+  //       },
+  //       (error) => {
+  //         console.log(error);
+  //       },
+  //       () => {
+  //         getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
+  //           toast.info('Upload completed');
+  //           setState((prev) => ({ ...prev, imgUrl: downloadUrl }));
+  //         });
+  //       }
+  //     );
+  //   };
 
-    file && uploadFile();
-  }, [file]);
+  //   file && uploadFile();
+  // }, [file]);
 
   const handleAuth = async (e) => {
     e.preventDefault();
@@ -159,11 +159,11 @@ const Auth = () => {
             <button
               className={`btn ${!signUp ? 'btn-sign-in' : 'btn-sing-up'}`}
               type="submit"
-              disabled={progress !== null && progress > 100}>
+            >
               {!signUp ? 'Sign In To Your Apple ID' : 'Sign In To Your Apple ID'}
             </button>
           </form>
-          {/* <div>
+          <div>
             {!signUp ? (
               <>
                 <div className="last">
@@ -179,7 +179,7 @@ const Auth = () => {
                 </div>
               </>
             )}
-          </div> */}
+          </div>
         </div>
       </RightWrapper>
     </AuthWrapper>

@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Header from './components/Header/Header';
+// import Header from './components/Header/Header';
 import Auth from './pages/Auth/Auth';
 import Home from './pages/Home/Home';
 import Shop from './pages/Shop/Shop';
@@ -13,7 +13,7 @@ import { AuthContext } from './context/AuthContext';
 import Search from './pages/Search/Search';
 import Checkout from './pages/Checkout/Checkout';
 import Complete from './pages/Checkout/Complete';
-import Footer from './components/Footer/Footer'
+// import Footer from './components/Footer/Footer'
 
 const App = () => {
   const { currentUser } = useContext(AuthContext);
