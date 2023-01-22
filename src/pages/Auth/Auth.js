@@ -93,7 +93,7 @@ const Auth = () => {
         return toast.error('All fields are required!');
       }
     }
-    navigate('/');
+    navigate('/auth');
   };
   return (
     <AuthWrapper>
